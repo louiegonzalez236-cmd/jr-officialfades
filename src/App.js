@@ -1,3 +1,5 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Hero from "./components/Hero";
 import Services from "./components/Services";
 import Menu from "./components/Menu";
@@ -6,18 +8,35 @@ import Barbers from "./components/Barbers";
 import About from "./components/About";
 import Footer from "./components/Footer";
 
-function App(){
-  return(
-    <div>
-      <Hero />
-      <Services />
-      <Menu />
-      <Work />
-      <Barbers />
-      <About />
-      <Footer />
-      {/* We will build our barbershop layout here */}
-    </div>
+import Appointment from "./components/Appointment";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+
+        {/* Home Page */}
+        <Route
+          path="/"
+          element={
+            <div>
+              <Hero />
+              <Services />
+              <Menu />
+              <Work />
+              <Barbers />
+              <About />
+              <Footer />
+            </div>
+          }
+        />
+
+        {/* Appointment Page */}
+        <Route path="/appointment" element={<Appointment />} />
+
+      </Routes>
+    </BrowserRouter>
   );
 }
+
 export default App;

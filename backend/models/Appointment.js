@@ -2,7 +2,7 @@ const { type } = require("@testing-library/user-event/dist/type");
 const mongoose = require("mongoose");
 
 const AppointmentSchema = new mongoose.Schema({
-    customerName: {
+    name: {
         type: String,
         required: true
     },

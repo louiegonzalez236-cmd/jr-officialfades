@@ -20,9 +20,11 @@ router.post("/", async (req,res) => {
     await appointment.save();
     res.json(appointment);
   } catch (error) {
+    console.log("APPOINTMENT ERROR:", error);   // <-- ADD THIS
     res.status(500).json({message: "Error creating appointment"});
   }
 });
+
 
 //DLETE appointment
 router.delete("/:id", async (req, res) =>{

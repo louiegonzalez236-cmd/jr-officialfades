@@ -1,0 +1,9 @@
+.appointment {
+  padding: 40px;
+}
+
+.appointment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

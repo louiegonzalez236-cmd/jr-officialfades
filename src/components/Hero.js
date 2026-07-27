@@ -1,5 +1,6 @@
 import React from 'react';
 import './Hero.css';
+import { Link } from "react-router-dom";
 
 function Hero() {
     return (
@@ -13,7 +14,10 @@ function Hero() {
                 </p>
                 
                 <div className='hero-buttons'>
-                    <button className='btn-primary'>Book Appointment</button>
+                    <Link to="/appointment" className='btn-primary'>
+                        Book Appointment
+                    </Link>
+
                     <button className='btn-secondary'>View Services</button>
                 </div>
 
@@ -30,11 +34,8 @@ function Hero() {
                         <h3>4.9</h3>
                         <p>Avg. rating</p>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
     );
 }
