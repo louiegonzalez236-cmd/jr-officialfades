@@ -9,6 +9,7 @@ import About from "./components/About";
 import Footer from "./components/Footer";
 
 import Appointment from "./components/Appointment";
+import AppointmentsDashboard from "./pages/AppointmentsDashboard";
 
 function App() {
   return (
@@ -34,9 +35,13 @@ function App() {
         {/* Appointment Page */}
         <Route path="/appointment" element={<Appointment />} />
 
+        {/* Dashboard Page */}
+        <Route path="/dashboard" element={<AppointmentsDashboard />} />
+
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
+
