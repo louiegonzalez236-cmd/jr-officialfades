@@ -25,3 +25,40 @@ button {
 button:hover {
   background: #e60000;
 }
+
+.today-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.today-btn:hover {
+  background: #0056b3;
+}
+
+
+.show-all-btn,
+.date-filter-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  margin-left: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.show-all-btn:hover,
+.date-filter-btn:hover {
+  background: #1e7e34;
+}
+
+.date-picker {
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 6px;
+}
