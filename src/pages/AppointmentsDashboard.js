@@ -4,15 +4,33 @@ import "./AppointmentsDashboard.css";
 
 function AppointmentsDashboard() {
   const [appointments, setAppointments] = useState([]);
+  const [selectedDate, setSelectedDate] =useState("");
 
-  useEffect(() => {
-    fetchAppointments();
-  }, []);
-
+  // FETCH ALL APPOINTMENTS (this was missing)
   const fetchAppointments = async () => {
     const res = await axios.get("http://localhost:5000/api/appointments");
     setAppointments(res.data);
   };
+
+  // FETCH TODAY'S APPOINTMENTS
+  const fetchTodayAppointments = async () => {
+    const res = await axios.get("http://localhost:5000/api/appointments/today");
+    setAppointments(res.data);
+  };
+
+  const fetchAppointmentsByDate = async () => {
+    if (!selectedDate) return;
+    
+    const res = await axios.get(
+        `http://localhost:5000/api/appointments/date/${selectedDate}`
+    );
+
+    setAppointments(res.data);
+  };
+
+  useEffect(() => {
+    fetchAppointments();
+  }, []);
 
   const deleteAppointment = async (id) => {
     await axios.delete(`http://localhost:5000/api/appointments/${id}`);
@@ -22,6 +40,24 @@ function AppointmentsDashboard() {
   return (
     <section className="dashboard">
       <h2>Appointments Dashboard</h2>
+
+      <button onClick={fetchTodayAppointments} className="today-btn">
+        Show Today's Appointments
+      </button>
+
+      <button onClick={fetchAppointments} className="show-all-btn">
+        Show All Appointments
+      </button>
+      <input
+      type="date"
+      value={selectedDate}
+      onChange={(e) => setSelectedDate(e.target.value)}
+      />
+
+      <button onClick={fetchAppointmentsByDate} className="date-filter-btn">
+  Filter by Date
+</button>
+
 
       <table className="appointments-table">
         <thead>

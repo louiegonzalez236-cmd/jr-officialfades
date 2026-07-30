@@ -4,12 +4,14 @@ const Appointment = require("../models/Appointment");
 const router = express.Router();
 
 // GET all appointments
-router.get("/", async (req, res) => {
-  try {
-    const appointments = await Appointment.find();
+router.get("/today", async (req, res) => {
+  try{
+    const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+    const appointments = await Appointment.find({date: today});
     res.json(appointments);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching appointments" });
+    console.error("TODAY GET ERROR", error);
+    res.status(500).json({message: "Error fetching today's appointments"});
   }
 });
 
@@ -36,5 +38,17 @@ router.delete("/:id", async (req, res) =>{
     }
     
 });
+
+//Show all appointments
+router.get("/date/:date", async (req, res) => {
+  try {
+    const { date } = req.params;
+    const appointments = await Appointment.find({ date });
+    res.json(appointments);
+  } catch (error) {
+    res.status(500).json({ message: "Error filtering by date" });
+  }
+});
+
 
 module.exports = router;
