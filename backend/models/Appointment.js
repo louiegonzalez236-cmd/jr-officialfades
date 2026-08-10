@@ -1,4 +1,3 @@
-const { type } = require("@testing-library/user-event/dist/type");
 const mongoose = require("mongoose");
 
 const AppointmentSchema = new mongoose.Schema({
@@ -30,8 +29,6 @@ const AppointmentSchema = new mongoose.Schema({
         type: String,
         default: "pending"
     }
-    
-    
 });
 
 module.exports = mongoose.model("Appointment", AppointmentSchema);
