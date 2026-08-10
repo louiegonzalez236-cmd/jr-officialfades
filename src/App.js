@@ -10,6 +10,8 @@ import Footer from "./components/Footer";
 
 import Appointment from "./components/Appointment";
 import AppointmentsDashboard from "./pages/AppointmentsDashboard";
+import AdminLogin from "./pages/AdminLogin";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -35,8 +37,18 @@ function App() {
         {/* Appointment Page */}
         <Route path="/appointment" element={<Appointment />} />
 
-        {/* Dashboard Page */}
-        <Route path="/dashboard" element={<AppointmentsDashboard />} />
+        {/* Admin Login */}
+        <Route path="/admin-login" element={<AdminLogin />} />
+
+        {/* Dashboard Page (Protected) */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <AppointmentsDashboard />
+            </ProtectedRoute>
+          }
+        />
 
       </Routes>
     </BrowserRouter>

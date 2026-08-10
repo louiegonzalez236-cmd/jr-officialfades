@@ -8,20 +8,20 @@ function AppointmentsDashboard() {
 
   // FETCH ALL APPOINTMENTS (this was missing)
   const fetchAppointments = async () => {
-    const res = await axios.get("http://localhost:5000/api/appointments");
+    const res = await api.get("http://localhost:5000/api/appointments");
     setAppointments(res.data);
   };
 
   // FETCH TODAY'S APPOINTMENTS
   const fetchTodayAppointments = async () => {
-    const res = await axios.get("http://localhost:5000/api/appointments/today");
+    const res = await api.get("http://localhost:5000/api/appointments/today");
     setAppointments(res.data);
   };
 
   const fetchAppointmentsByDate = async () => {
     if (!selectedDate) return;
     
-    const res = await axios.get(
+    const res = await api.get(
         `http://localhost:5000/api/appointments/date/${selectedDate}`
     );
 
@@ -33,9 +33,20 @@ function AppointmentsDashboard() {
   }, []);
 
   const deleteAppointment = async (id) => {
-    await axios.delete(`http://localhost:5000/api/appointments/${id}`);
+    await api.delete(`http://localhost:5000/api/appointments/${id}`);
     fetchAppointments(); // refresh list
   };
+
+  const api = axios.create({
+  baseURL: "http://localhost:5000/api/appointments",
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 
   return (
     <section className="dashboard">

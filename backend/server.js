@@ -2,11 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
+
 const AppointmentRoutes = require("./routes/AppointmentRoutes");
 const barberRoutes = require("./routes/barberRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
+const authRoutes = require("./routes/authRoutes");
 
-const app = express();
+const app = express();   // ✅ MUST come before app.use()
 
 // Middleware
 app.use(cors());
@@ -18,6 +20,7 @@ app.get("/", (req, res) => {
 });
 
 // API routes
+app.use("/api/auth", authRoutes);          // ✅ now safe
 app.use("/api/appointments", AppointmentRoutes);
 app.use("/api/barbers", barberRoutes);
 app.use("/api/reviews", reviewRoutes);
