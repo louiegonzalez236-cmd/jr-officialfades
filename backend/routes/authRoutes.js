@@ -8,7 +8,7 @@ const router = express.Router();
 const adminUser = {
   username: "admin",
   // password: "password123" hashed:
-  passwordHash: "$2b$10$Q9k8s8JH0kY2x9FJt8dUu9lYpQe9jFJt8dUu9lYpQe9jFJt8dUu"
+  passwordHash: "$2b$10$Tg2Zm.xcaWFnZ4stCMKl2OrmtjCwVkHLlBk5GNBjvdCm.8N9X5rVC"
 };
 
 
