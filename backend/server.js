@@ -1,3 +1,6 @@
+const dns = require("dns")
+dns.setServers(["1.1.1.1", "8.8.8.8"]); // Cloudflare + Google DNS 
+
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -7,6 +10,7 @@ const AppointmentRoutes = require("./routes/AppointmentRoutes");
 const barberRoutes = require("./routes/barberRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const authRoutes = require("./routes/authRoutes");
+const haircutRoutes = require("./routes/haircut");
 
 const app = express();   // ✅ MUST come before app.use()
 
@@ -24,6 +28,7 @@ app.use("/api/auth", authRoutes);          // ✅ now safe
 app.use("/api/appointments", AppointmentRoutes);
 app.use("/api/barbers", barberRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/haircut", haircutRoutes);
 
 // Connect to MongoDB
 connectDB();
