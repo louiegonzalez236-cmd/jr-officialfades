@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { createAppointment } from "../api/appointmentApi";
+import { getHaircutRecommendation } from "../api/haircutApi";
 import "./Appointment.css";
+
 
 function Appointment() {
     const [form, setForm] = useState({
@@ -11,8 +13,34 @@ function Appointment() {
         service: ""
     });
 
+    const [photo, setPhoto] = useState(null);
+    const [recommendations, setRecommendations] = useState(null);
+    const [loadingHaircut, setLoadingHaircut] = useState(false);
+
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const handlePhotoChange = (e) => {
+        setPhoto(e.target.files[0]);
+    };
+
+    const handleHaircutSubmit = async () => {
+        if (!photo) {
+            alert("Please select a photo first");
+            return;
+        }
+
+        setLoadingHaircut(true);
+        try {
+            const result = await getHaircutRecommendation(photo);
+            setRecommendations(result.recommendations);
+        } catch (error) {
+            console.error("Error getting haircut recommendation:", error);
+            alert("Something went wrong getting your recommendation. Please try again");
+        } finally{
+            setLoadingHaircut(false);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -72,6 +100,33 @@ function Appointment() {
 
                 <button type="submit">Book Appointment</button>
             </form>
+
+            <div className="haircut-recommender">
+                <h2>Get a Haircut Recommendation</h2>
+                <p>Upload a photo and let AI suggest style that would suit you.</p>
+
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoChange}
+                />
+
+                <button onClick={handleHaircutSubmit} disabled={loadingHaircut}>
+                    {loadingHaircut ? "Analyzing..." : "Get Recommendation"}
+                </button>
+
+                {recommendations && (
+                    <ul className="haircut-result">
+                        {recommendations.map((rec, index) => (
+                            <li key={index}>
+                                <strong>{rec.style}</strong>
+                                <p>{rec.reason}</p>
+                            </li>    
+                        ))}
+
+                    </ul>
+                )}
+            </div>
         </section>
     );
 }
